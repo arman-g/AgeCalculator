@@ -24,8 +24,9 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
       working-directory: ./AgeCalculator/
-    - name: Publish
-      uses: brandedoutcast/publish-nuget@2.5.2
+    - name: Publish nuget package on version change
+      id: publish_nuget
+      uses: rohith/publish-nuget@v2
       with:
         PROJECT_FILE_PATH: AgeCalculator/AgeCalculator.csproj
         NUGET_KEY: ${{secrets.NUGET_API_KEY}}
