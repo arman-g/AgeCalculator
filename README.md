@@ -4,6 +4,11 @@ AgeCalculator can be used to calculate the age (in a format of years, months, an
 ## Dependencies
 .NET 5+
 
+## NuGet Package
+```
+PM> Install-Package AgeCalculator
+```
+
 ## How To Use (Code)
 ``` csharp
 /* There are two ways to use Age calculator */
