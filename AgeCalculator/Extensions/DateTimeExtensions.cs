@@ -2,6 +2,9 @@
 
 namespace AgeCalculator.Extensions
 {
+    /// <summary>
+    /// Contains <see cref="DateTime"/> extension methods.
+    /// </summary>
     public static class DateTimeExtensions
     {
         private const byte Feb28 = 59;
