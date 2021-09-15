@@ -19,7 +19,7 @@ public void PrintMyAge()
     var myAge = dob.CalculateAge(DateTime.Now);
     Console.WriteLine($"Age: {myAge}");
     
-    // Using Age object's static function.
+    // Using Age type's static function.
     myAge = Age.Calculate(dob, DateTime.Now);
     Console.WriteLine($"Age: {myAge}");
 }
