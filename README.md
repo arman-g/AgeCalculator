@@ -21,11 +21,11 @@ public void PrintMyAge()
     var dob = DateTime.Parse("10/03/2015");
     
     // Using DateTime extension.
-    var myAge = dob.CalculateAge(DateTime.Now);
+    var myAge = dob.CalculateAge(DateTime.Now); // as of 09/14/2021
     Console.WriteLine($"Age: {myAge}");
     
     // Using Age type's static function.
-    myAge = Age.Calculate(dob, DateTime.Now);
+    myAge = Age.Calculate(dob, DateTime.Now); // as of 09/14/2021
     Console.WriteLine($"Age: {myAge}");
 }
 
