@@ -4,6 +4,11 @@
         <name>AgeCalculator</name>
     </assembly>
     <members>
+        <member name="T:AgeCalculator.Extensions.DateTimeExtensions">
+            <summary>
+            Contains <see cref="T:System.DateTime"/> extension methods.
+            </summary>
+        </member>
         <member name="M:AgeCalculator.Extensions.DateTimeExtensions.IsInLeapYear(System.DateTime)">
             <summary>
             Indicates whether this date is in a leap year.
@@ -20,31 +25,12 @@
             <remarks>This function supports leaper years.</remarks>
             <returns>An instance of <see cref="T:AgeCalculator.Age"/> object containing years, months and days information.</returns>
         </member>
-        <member name="M:AgeCalculator.Extensions.DateTimeExtensions.SetYears(System.DateTime,System.DateTime,AgeCalculator.Age)">
+        <member name="M:AgeCalculator.Extensions.DateTimeExtensions.GetRemainingDaysOfMonth(System.DateTime)">
             <summary>
-            Set the years component of the age.
+            Gets the number of remaining days of this <see cref="T:System.DateTime"/> month.
             </summary>
-            <param name="fromDate">The years' from date.</param>
-            <param name="toDate">The years' to date.</param>
-            <param name="age">The <see cref="T:AgeCalculator.Age"/> object to set the years information.</param>
-        </member>
-        <member name="M:AgeCalculator.Extensions.DateTimeExtensions.SetMonths(System.DateTime,System.DateTime,AgeCalculator.Age,System.Boolean)">
-            <summary>
-            Set the months component of the age.
-            </summary>
-            <param name="fromDate">The months' from date.</param>
-            <param name="toDate">The months' to date.</param>
-            <param name="age">The <see cref="T:AgeCalculator.Age"/> object to set the months information.</param>
-            <param name="addExtraDay">Indicates whether an extra day should be added in the calculations.</param>
-        </member>
-        <member name="M:AgeCalculator.Extensions.DateTimeExtensions.SetDays(System.DateTime,System.DateTime,AgeCalculator.Age,System.Boolean)">
-            <summary>
-            Set the days component of the age.
-            </summary>
-            <param name="fromDate">The days' from date.</param>
-            <param name="toDate">The days' to date.</param>
-            <param name="age">The <see cref="T:AgeCalculator.Age"/> object to set the days information.</param>
-            <param name="addExtraDay">Indicates whether an extra day should be added in the calculations.</param>
+            <param name="dt">This <see cref="T:System.DateTime"/> object.</param>
+            <returns>The number of remaining days left to the end of the month.</returns>
         </member>
         <member name="T:AgeCalculator.Age">
             <summary>

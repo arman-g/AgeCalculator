@@ -7,8 +7,6 @@ namespace AgeCalculator.Extensions
     /// </summary>
     public static class DateTimeExtensions
     {
-        private const byte Feb28 = 59;
-        private const byte Feb29 = 60;
         private const byte TotalMonths = 12;
 
         /// <summary>
@@ -37,87 +35,81 @@ namespace AgeCalculator.Extensions
                 "This date instance must be less or equal to 'toDate'.");
 
             var age = new Age();
-            var isFeb29 = fromDate.IsInLeapYear() && fromDate.DayOfYear == Feb29;
-            SetYears(fromDate, toDate, age);
-            var temp = fromDate.AddYears(age.Years);
-            SetMonths(temp, toDate, age, isFeb29 && age.Years > 0);
-            SetDays(temp.AddMonths(age.Months), toDate, age, isFeb29 && age.Months > 0);
+            // Same year
+            if (fromDate.Year == toDate.Year)
+            {
+                if (fromDate.Month == toDate.Month)
+                {
+                    age.Days = (byte)Math.Abs(toDate.Day - fromDate.Day);
+                }
+                else
+                {
+                    age.Months = (byte)Math.Abs(toDate.Month - fromDate.Month);
+                    if (fromDate.Day > toDate.Day)
+                    {
+                        --age.Months;
+                        age.Days = (byte)(fromDate.GetRemainingDaysOfMonth() + toDate.Day);
+                    }
+                    else
+                    {
+                        age.Days = (byte)Math.Abs(toDate.Day - fromDate.Day);
+                    }
+                }
+            }
+            else
+            {
+                // Different years
+                age.Years = toDate.Year - fromDate.Year;
+                if (fromDate.Month == toDate.Month)
+                {
+                    var days = toDate.Day - fromDate.Day;
+                    if (days < 0)
+                    {
+                        --age.Years;
+                        age.Months = (byte)(TotalMonths - fromDate.Month + toDate.Month - 1);
+                        age.Days = (byte)(fromDate.GetRemainingDaysOfMonth() + toDate.Day);
+                    }
+                    else
+                    {
+                        age.Days = (byte)days;
+                    }
+                }
+                else
+                {
+                    if (fromDate.Month > toDate.Month)
+                    {
+                        --age.Years;
+                        age.Months = (byte)(TotalMonths - fromDate.Month + toDate.Month);
+                    }
+                    else
+                    {
+                        age.Months = (byte)(toDate.Month - fromDate.Month);
+                    }
+
+                    var days = toDate.Day - fromDate.Day;
+                    if (days < 0)
+                    {
+                        --age.Months;
+                        age.Days = (byte)(fromDate.GetRemainingDaysOfMonth() + toDate.Day);
+                    }
+                    else
+                    {
+                        age.Days = (byte)days;
+                    }
+                }
+            }
+
             return age;
         }
 
         /// <summary>
-        /// Set the years component of the age.
+        /// Gets the number of remaining days of this <see cref="DateTime"/> month.
         /// </summary>
-        /// <param name="fromDate">The years' from date.</param>
-        /// <param name="toDate">The years' to date.</param>
-        /// <param name="age">The <see cref="Age"/> object to set the years information.</param>
-        private static void SetYears(DateTime fromDate, DateTime toDate, Age age)
+        /// <param name="dt">This <see cref="DateTime"/> object.</param>
+        /// <returns>The number of remaining days left to the end of the month.</returns>
+        private static int GetRemainingDaysOfMonth(this DateTime dt)
         {
-            if (fromDate.Year >= toDate.Year)
-            {
-                age.Years = 0;
-                return;
-            }
-
-            age.Years = toDate.Year - fromDate.Year;
-            if (fromDate.AddYears(age.Years) > toDate)
-            {
-                age.Years -= 1;
-            }
-        }
-
-        /// <summary>
-        /// Set the months component of the age.
-        /// </summary>
-        /// <param name="fromDate">The months' from date.</param>
-        /// <param name="toDate">The months' to date.</param>
-        /// <param name="age">The <see cref="Age"/> object to set the months information.</param>
-        /// <param name="addExtraDay">Indicates whether an extra day should be added in the calculations.</param>
-        private static void SetMonths(DateTime fromDate, DateTime toDate, Age age, bool addExtraDay)
-        {
-            if (fromDate.Year == toDate.Year)
-            {
-                age.Months = (byte)(toDate.Month - fromDate.Month);
-            }
-            else
-            {
-                age.Months = (byte)(TotalMonths - fromDate.Month);
-                age.Months += (byte)(toDate.Month);
-            }
-
-            var temp = fromDate.AddMonths(age.Months);
-            if (temp.IsInLeapYear() && temp.DayOfYear == Feb28 && addExtraDay)
-            {
-                temp = temp.AddDays(1);
-            }
-            if (temp > toDate)
-            {
-                age.Months -= 1;
-            }
-        }
-
-        /// <summary>
-        /// Set the days component of the age.
-        /// </summary>
-        /// <param name="fromDate">The days' from date.</param>
-        /// <param name="toDate">The days' to date.</param>
-        /// <param name="age">The <see cref="Age"/> object to set the days information.</param>
-        /// <param name="addExtraDay">Indicates whether an extra day should be added in the calculations.</param>
-        private static void SetDays(DateTime fromDate, DateTime toDate, Age age, bool addExtraDay)
-        {
-            if (fromDate.Year == toDate.Year)
-            {
-                var dayOfYear = fromDate.DayOfYear;
-                if (toDate.IsInLeapYear() && addExtraDay)
-                {
-                    dayOfYear += 1;
-                }
-                age.Days = (byte)(toDate.DayOfYear - dayOfYear);
-            }
-            else
-            {
-                age.Days = (byte)(DateTime.DaysInMonth(fromDate.Year, fromDate.Month) - fromDate.Day + toDate.Day);
-            }
+            return DateTime.DaysInMonth(dt.Year, dt.Month) - dt.Day;
         }
     }
 }

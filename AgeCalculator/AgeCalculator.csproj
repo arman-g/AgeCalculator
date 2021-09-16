@@ -4,12 +4,12 @@
     <TargetFramework>net5.0</TargetFramework>
     <Authors>Arman Ghazanchyan</Authors>
     <Company>AG</Company>
-    <Description>AgeCalculator can be used to calculate the age (in a format of years, months, and days) between two dates. This calculator will include the leap years into its calculations and reflect the outcome accordingly. In the calculations, Feb 29th in a leap year will be treated as Feb 28th in a non-leap year.</Description>
+    <Description>AgeCalculator can be used to calculate the age between two dates and output in years, months, and days format.</Description>
     <Product>Age Calculator</Product>
     <RepositoryUrl>https://github.com/arman-g/AgeCalculator</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>age calculator</PackageTags>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <PackageReleaseNotes>For a sample of the usage see the REDME file under the repository.</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/arman-g/AgeCalculator</PackageProjectUrl>
     <ApplicationIcon />
