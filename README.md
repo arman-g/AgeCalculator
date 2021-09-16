@@ -1,5 +1,5 @@
 # AgeCalculator
-AgeCalculator can be used to calculate the age (in a format of years, months, and days) between two dates. This calculator will include the leap years into its calculations and reflect the outcome accordingly. In the calculations, Feb 29th in a leap year will be treated as Feb 28th in a non-leap year.
+AgeCalculator can be used to calculate the age between two dates in years, months, and days format.
 
 ## Dependencies
 .NET 5+
@@ -31,4 +31,11 @@ public void PrintMyAge()
 
 // Output:
 // Age: 5yr., 11mos., 11d
+
+// Other Outputs:
+// 02/28/2020:L - 02/29/2020:L Age: 0yr., 0mos., 1d
+// 02/29/2020:L - 02/29/2020:L Age: 0yr., 0mos., 0d
+// 02/29/2020:L - 03/01/2020:L Age: 0yr., 0mos., 1d
+// 02/29/1960:L - 02/28/2021:N Age: 60yr., 11mos., 28d
+// 02/29/1960:L - 03/01/2021:N Age: 61yr., 0mos., 1d
 ```
