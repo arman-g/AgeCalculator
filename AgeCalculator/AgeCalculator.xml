@@ -9,13 +9,6 @@
             Contains <see cref="T:System.DateTime"/> extension methods.
             </summary>
         </member>
-        <member name="M:AgeCalculator.Extensions.DateTimeExtensions.IsInLeapYear(System.DateTime)">
-            <summary>
-            Indicates whether this date is in a leap year.
-            </summary>
-            <param name="value">This <see cref="T:System.DateTime"/> instance.</param>
-            <returns>A boolean value indicating whether this date is in a leap your.</returns>
-        </member>
         <member name="M:AgeCalculator.Extensions.DateTimeExtensions.CalculateAge(System.DateTime,System.DateTime)">
             <summary>
             Calculate the age between two dates.
@@ -24,13 +17,6 @@
             <param name="toDate">The age's to date.</param>
             <remarks>This function supports leaper years.</remarks>
             <returns>An instance of <see cref="T:AgeCalculator.Age"/> object containing years, months and days information.</returns>
-        </member>
-        <member name="M:AgeCalculator.Extensions.DateTimeExtensions.GetRemainingDaysOfMonth(System.DateTime)">
-            <summary>
-            Gets the number of remaining days of this <see cref="T:System.DateTime"/> month.
-            </summary>
-            <param name="dt">This <see cref="T:System.DateTime"/> object.</param>
-            <returns>The number of remaining days left to the end of the month.</returns>
         </member>
         <member name="T:AgeCalculator.Age">
             <summary>

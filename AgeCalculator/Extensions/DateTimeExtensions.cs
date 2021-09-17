@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*
+ * C# Age Calculation Library
+ * https://github.com/arman-g/AgeCalculator
+ *
+ * Copyright 2021-2022 Arman Ghazanchyan
+ * Licensed under The MIT License
+ * http://www.opensource.org/licenses/mit-license
+ */
+
+using System;
 
 namespace AgeCalculator.Extensions
 {
@@ -8,16 +17,6 @@ namespace AgeCalculator.Extensions
     public static class DateTimeExtensions
     {
         private const byte TotalMonths = 12;
-
-        /// <summary>
-        /// Indicates whether this date is in a leap year.
-        /// </summary>
-        /// <param name="value">This <see cref="DateTime"/> instance.</param>
-        /// <returns>A boolean value indicating whether this date is in a leap your.</returns>
-        public static bool IsInLeapYear(this DateTime value)
-        {
-            return DateTime.IsLeapYear(value.Year);
-        }
 
         /// <summary>
         /// Calculate the age between two dates.
@@ -34,82 +33,30 @@ namespace AgeCalculator.Extensions
                 nameof(fromDate),
                 "This date instance must be less or equal to 'toDate'.");
 
-            var age = new Age();
-            // Same year
-            if (fromDate.Year == toDate.Year)
+            var daysInMonth = DateTime.DaysInMonth(fromDate.Year, fromDate.Month);
+            var days = toDate.Day - fromDate.Day;
+            var age = new Age
             {
-                if (fromDate.Month == toDate.Month)
-                {
-                    age.Days = (byte)Math.Abs(toDate.Day - fromDate.Day);
-                }
-                else
-                {
-                    age.Months = (byte)Math.Abs(toDate.Month - fromDate.Month);
-                    if (fromDate.Day > toDate.Day)
-                    {
-                        --age.Months;
-                        age.Days = (byte)(fromDate.GetRemainingDaysOfMonth() + toDate.Day);
-                    }
-                    else
-                    {
-                        age.Days = (byte)Math.Abs(toDate.Day - fromDate.Day);
-                    }
-                }
+                Days = days < 0 ? (byte)(daysInMonth - fromDate.Day + toDate.Day) : (byte)days
+            };
+
+            if (fromDate.Month < toDate.Month)
+            {
+                age.Months = (byte)(toDate.Month - fromDate.Month - (fromDate.Day > toDate.Day ? 1 : 0));
+                age.Years = toDate.Year - fromDate.Year;
+            }
+            else if (fromDate.Month > toDate.Month)
+            {
+                age.Months = (byte)((TotalMonths - fromDate.Month + toDate.Month - (fromDate.Day > toDate.Day ? 1 : 0)));
+                age.Years = toDate.Year - fromDate.Year - 1;
             }
             else
             {
-                // Different years
-                age.Years = toDate.Year - fromDate.Year;
-                if (fromDate.Month == toDate.Month)
-                {
-                    var days = toDate.Day - fromDate.Day;
-                    if (days < 0)
-                    {
-                        --age.Years;
-                        age.Months = (byte)(TotalMonths - fromDate.Month + toDate.Month - 1);
-                        age.Days = (byte)(fromDate.GetRemainingDaysOfMonth() + toDate.Day);
-                    }
-                    else
-                    {
-                        age.Days = (byte)days;
-                    }
-                }
-                else
-                {
-                    if (fromDate.Month > toDate.Month)
-                    {
-                        --age.Years;
-                        age.Months = (byte)(TotalMonths - fromDate.Month + toDate.Month);
-                    }
-                    else
-                    {
-                        age.Months = (byte)(toDate.Month - fromDate.Month);
-                    }
-
-                    var days = toDate.Day - fromDate.Day;
-                    if (days < 0)
-                    {
-                        --age.Months;
-                        age.Days = (byte)(fromDate.GetRemainingDaysOfMonth() + toDate.Day);
-                    }
-                    else
-                    {
-                        age.Days = (byte)days;
-                    }
-                }
+                age.Months = (byte)(fromDate.Day > toDate.Day ? TotalMonths - 1 : 0);
+                age.Years = toDate.Year - fromDate.Year - (fromDate.Day > toDate.Day ? 1 : 0);
             }
 
             return age;
-        }
-
-        /// <summary>
-        /// Gets the number of remaining days of this <see cref="DateTime"/> month.
-        /// </summary>
-        /// <param name="dt">This <see cref="DateTime"/> object.</param>
-        /// <returns>The number of remaining days left to the end of the month.</returns>
-        private static int GetRemainingDaysOfMonth(this DateTime dt)
-        {
-            return DateTime.DaysInMonth(dt.Year, dt.Month) - dt.Day;
         }
     }
 }

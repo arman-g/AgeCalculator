@@ -1,5 +1,4 @@
 ﻿using AgeCalculator;
-using AgeCalculator.Extensions;
 using System;
 using Xunit;
 using Xunit.Abstractions;
@@ -37,6 +36,14 @@ namespace Tests.Extensions
         [InlineData("02/05/2021", "05/05/2021", 0, 3, 0)]
         [InlineData("02/05/2021", "05/07/2021", 0, 3, 2)]
 
+        // -- N-L -- y1 < y2, m1 = m2
+        [InlineData("02/28/2017", "02/29/2020", 3, 0, 1)]
+
+        // -- N-L -- y1 < y2, m1 < m2
+        [InlineData("02/02/2019", "08/31/2020", 1, 6, 29)]
+        [InlineData("02/28/2019", "08/05/2020", 1, 5, 5)]
+        [InlineData("02/01/2019", "08/31/2020", 1, 6, 30)]
+
         // -- L-L -- y1 = y2, m1 = m2
         [InlineData("02/28/2020", "02/28/2020", 0, 0, 0)]
         [InlineData("02/28/2020", "02/29/2020", 0, 0, 1)]
@@ -48,24 +55,28 @@ namespace Tests.Extensions
         [InlineData("02/29/2020", "03/29/2020", 0, 1, 0)]
         [InlineData("02/29/2020", "03/31/2020", 0, 1, 2)]
 
-        // -- N-N -- y1 < y2, m1 = m2
-        [InlineData("01/02/2017", "01/01/2018", 0, 11, 30)]
+        // -- N-N -- y1 < y2, m1 = m2, d1 = d2
         [InlineData("01/02/2017", "01/02/2018", 1, 0, 0)]
-        [InlineData("01/02/2017", "01/03/2018", 1, 0, 1)]
-        [InlineData("01/02/2017", "01/01/2019", 1, 11, 30)]
         [InlineData("01/02/2017", "01/02/2019", 2, 0, 0)]
+        [InlineData("04/02/2017", "04/02/2019", 2, 0, 0)]
+
+        // -- N-N -- y1 < y2, m1 = m2, d1 < d2
+        [InlineData("01/02/2017", "01/03/2018", 1, 0, 1)]
         [InlineData("01/02/2017", "01/03/2019", 2, 0, 1)]
 
         // -- N-N -- y1 < y2, m1 = m2, d1 > d2
+        [InlineData("01/02/2017", "01/01/2018", 0, 11, 30)]
+        [InlineData("01/02/2017", "01/01/2019", 1, 11, 30)]
         [InlineData("03/10/2017", "03/03/2019", 1, 11, 24)]
+        [InlineData("04/04/2017", "04/03/2019", 1, 11, 29)]
 
         // -- N-N -- y1 < y2, m1 < m2
         [InlineData("05/02/2017", "06/01/2018", 1, 0, 30)]
         [InlineData("05/02/2017", "06/02/2018", 1, 1, 0)]
         [InlineData("05/02/2017", "06/03/2018", 1, 1, 1)]
-        [InlineData("08/01/2019", "02/02/2021", 1, 6, 1)]
 
         // -- N-N -- y1 < y2, m1 > m2
+        [InlineData("08/01/2019", "02/02/2021", 1, 6, 1)]
         [InlineData("06/02/2017", "05/01/2018", 0, 10, 29)]
         [InlineData("06/02/2017", "05/02/2018", 0, 11, 0)]
         [InlineData("06/02/2017", "05/03/2018", 0, 11, 1)]
@@ -88,7 +99,9 @@ namespace Tests.Extensions
         [InlineData("02/29/1960", "02/27/2021", 60, 11, 27)]
         [InlineData("02/29/1960", "02/28/2021", 60, 11, 28)]
 
-        // -- L-N -- y1 < y2, m1 < m2
+        //-- L-N -- y1 < y2, m1 < m2
+        [InlineData("02/29/2020", "03/01/2021", 1, 0, 1)]
+        [InlineData("02/29/2020", "04/01/2021", 1, 1, 1)]
         [InlineData("01/01/2000", "12/31/2001", 1, 11, 30)]
         [InlineData("02/29/1960", "03/01/2021", 61, 0, 1)]
 
@@ -104,11 +117,16 @@ namespace Tests.Extensions
             else
             {
                 var age = Age.Calculate(dob, endDate);
-                _output.WriteLine($"{dob:MM/dd/yyyy}:{(dob.IsInLeapYear() ? 'L' : 'N')} - {endDate:MM/dd/yyyy}:{(endDate.IsInLeapYear() ? 'L' : 'N')} Age: {age}");
+                _output.WriteLine($"{dob:MM/dd/yyyy}:{(IsInLeapYear(dob) ? 'L' : 'N')} - {endDate:MM/dd/yyyy}:{(IsInLeapYear(endDate) ? 'L' : 'N')} Age: {age}");
                 Assert.Equal(expectedYears, age.Years);
                 Assert.Equal(expectedMoths, age.Months);
                 Assert.Equal(expectedDays, age.Days);
             }
+        }
+
+        private static bool IsInLeapYear(DateTime value)
+        {
+            return DateTime.IsLeapYear(value.Year);
         }
     }
 }
