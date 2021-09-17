@@ -1,5 +1,5 @@
 # AgeCalculator
-AgeCalculator can be used to calculate the age between two dates in years, months, and days format.
+AgeCalculator is an age calculation library that can be used to calculate the age between two dates and output in years, months, and days format.
 
 ## Dependencies
 .NET 5+
