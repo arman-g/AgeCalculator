@@ -40,9 +40,9 @@ namespace Tests.Extensions
         [InlineData("02/28/2017", "02/29/2020", 3, 0, 1)]
 
         // -- N-L -- y1 < y2, m1 < m2
+        [InlineData("02/01/2019", "08/31/2020", 1, 6, 30)]
         [InlineData("02/02/2019", "08/31/2020", 1, 6, 29)]
         [InlineData("02/28/2019", "08/05/2020", 1, 5, 5)]
-        [InlineData("02/01/2019", "08/31/2020", 1, 6, 30)]
 
         // -- L-L -- y1 = y2, m1 = m2
         [InlineData("02/28/2020", "02/28/2020", 0, 0, 0)]
@@ -104,8 +104,7 @@ namespace Tests.Extensions
         [InlineData("02/29/2020", "04/01/2021", 1, 1, 1)]
         [InlineData("01/01/2000", "12/31/2001", 1, 11, 30)]
         [InlineData("02/29/1960", "03/01/2021", 61, 0, 1)]
-
-        public void Calculate_age(string fromDate, string toDate, int expectedYears, byte expectedMoths, byte expectedDays, bool? exception = false)
+        public void Calculate_age(string fromDate, string toDate, int expectedYears, byte expectedMonths, byte expectedDays, bool? exception = false)
         {
             var dob = DateTime.Parse(fromDate);
             var endDate = DateTime.Parse(toDate);
@@ -117,16 +116,19 @@ namespace Tests.Extensions
             else
             {
                 var age = Age.Calculate(dob, endDate);
-                _output.WriteLine($"{dob:MM/dd/yyyy}:{(IsInLeapYear(dob) ? 'L' : 'N')} - {endDate:MM/dd/yyyy}:{(IsInLeapYear(endDate) ? 'L' : 'N')} Age: {age}");
+                _output.WriteLine($"{dob:MM/dd/yyyy}:{GetLOrNYear(dob)} - {endDate:MM/dd/yyyy}:{GetLOrNYear(endDate)} Age: {age}");
                 Assert.Equal(expectedYears, age.Years);
-                Assert.Equal(expectedMoths, age.Months);
+                Assert.Equal(expectedMonths, age.Months);
                 Assert.Equal(expectedDays, age.Days);
             }
         }
 
-        private static bool IsInLeapYear(DateTime value)
+        /// <summary>
+        /// Returns 'L' for a leap year and 'N' for normal year.
+        /// </summary>
+        private static string GetLOrNYear(DateTime dt)
         {
-            return DateTime.IsLeapYear(value.Year);
+            return DateTime.IsLeapYear(dt.Year) ? "L" : "N";
         }
     }
 }
