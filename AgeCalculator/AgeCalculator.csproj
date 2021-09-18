@@ -10,7 +10,7 @@
     <RepositoryType>Git</RepositoryType>
     <PackageTags>age calculator</PackageTags>
     <Version>1.0.3</Version>
-    <PackageReleaseNotes>For a sample of the usage see the REDME file under the repository.</PackageReleaseNotes>
+    <PackageReleaseNotes>For sample usage see the REDME file under the repository.</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/arman-g/AgeCalculator</PackageProjectUrl>
     <ApplicationIcon />
   </PropertyGroup>
