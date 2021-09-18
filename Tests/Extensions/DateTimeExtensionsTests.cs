@@ -111,7 +111,7 @@ namespace Tests.Extensions
             if (exception == true)
             {
                 _output.WriteLine("Should throw an exception.");
-                Assert.Throws<ArgumentOutOfRangeException>(() => Age.Calculate(dob, endDate));
+                Assert.Throws<ArgumentOutOfRangeException>("fromDate", () => Age.Calculate(dob, endDate));
             }
             else
             {

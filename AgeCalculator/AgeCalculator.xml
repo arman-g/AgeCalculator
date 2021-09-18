@@ -11,16 +11,15 @@
         </member>
         <member name="M:AgeCalculator.Extensions.DateTimeExtensions.CalculateAge(System.DateTime,System.DateTime)">
             <summary>
-            Calculate the age between two dates.
+            Calculate the age between this and '<paramref name="toDate"/>' <see cref="T:System.DateTime"/> instances.
             </summary>
             <param name="fromDate">The age's from date.</param>
             <param name="toDate">The age's to date.</param>
-            <remarks>This function supports leaper years.</remarks>
             <returns>An instance of <see cref="T:AgeCalculator.Age"/> object containing years, months and days information.</returns>
         </member>
         <member name="T:AgeCalculator.Age">
             <summary>
-            Represents <see cref="T:AgeCalculator.Age"/> object to hold years, months and days information.
+            Represents <see cref="T:AgeCalculator.Age"/> class to hold years, months and days information.
             </summary>
         </member>
         <member name="P:AgeCalculator.Age.Years">
@@ -40,7 +39,7 @@
         </member>
         <member name="M:AgeCalculator.Age.ToString">
             <summary>
-            Returns the representation of this <see cref="T:AgeCalculator.Age"/> object in a format of years, months and days.
+            Returns the string representation of this <see cref="T:AgeCalculator.Age"/> instance in a format of years, months and days.
             </summary>
             <returns>Format: {1yr., 11mos., 2d}.</returns>
         </member>
@@ -48,9 +47,7 @@
             <summary>
             Calculate the age between two dates.
             </summary>
-            <param name="fromDate">The age's from date.</param>
-            <param name="toDate">The age's to date.</param>
-            <returns>An instance of <see cref="T:AgeCalculator.Age"/> object containing years, months and days information.</returns>
+            <inheritdoc cref="M:AgeCalculator.Extensions.DateTimeExtensions.CalculateAge(System.DateTime,System.DateTime)"/>
         </member>
     </members>
 </doc>

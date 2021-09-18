@@ -19,11 +19,10 @@ namespace AgeCalculator.Extensions
         private const byte TotalMonths = 12;
 
         /// <summary>
-        /// Calculate the age between two dates.
+        /// Calculate the age between this and '<paramref name="toDate"/>' <see cref="DateTime"/> instances.
         /// </summary>
         /// <param name="fromDate">The age's from date.</param>
         /// <param name="toDate">The age's to date.</param>
-        /// <remarks>This function supports leaper years.</remarks>
         /// <returns>An instance of <see cref="Age"/> object containing years, months and days information.</returns>
         public static Age CalculateAge(
             this DateTime fromDate,
@@ -31,7 +30,7 @@ namespace AgeCalculator.Extensions
         {
             if (fromDate > toDate) throw new ArgumentOutOfRangeException(
                 nameof(fromDate),
-                "This date instance must be less or equal to 'toDate'.");
+                $"This date instance must be less or equal to '{nameof(toDate)}'.");
 
             var daysInMonth = DateTime.DaysInMonth(fromDate.Year, fromDate.Month);
             var days = toDate.Day - fromDate.Day;
