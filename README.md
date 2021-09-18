@@ -17,7 +17,7 @@ using AgeCalculator.Extensions;
 
 public void PrintMyAge()
 {
-    // Date of birth or from date object.
+    // Date of birth or from date.
     var dob = DateTime.Parse("10/03/2015");
     
     // Using DateTime extension.
