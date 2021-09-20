@@ -11,13 +11,13 @@
         </member>
         <member name="M:AgeCalculator.Extensions.DateTimeExtensions.CalculateAge(System.DateTime,System.DateTime)">
             <summary>
-            Calculate the age between this and '<paramref name="toDate"/>' <see cref="T:System.DateTime"/> instances.
+            Calculates the age between this and the specified <see cref="T:System.DateTime"/> instance.
             </summary>
             <inheritdoc cref="M:AgeCalculator.Age.#ctor(System.DateTime,System.DateTime)"/>
         </member>
         <member name="T:AgeCalculator.Age">
             <summary>
-            Represents <see cref="T:AgeCalculator.Age"/> class to hold years, months and days information.
+            Represents <see cref="T:AgeCalculator.Age"/> class to hold years, months, days and time information.
             </summary>
         </member>
         <member name="P:AgeCalculator.Age.Years">
@@ -47,11 +47,11 @@
         </member>
         <member name="M:AgeCalculator.Age.#ctor(System.DateTime,System.DateTime)">
             <summary>
-            Initializes a new instance of the <see cref="T:AgeCalculator.Age"/> class to the specified '<paramref name="fromDate"/>' and '<paramref name="toDate"/>'.
+            Initializes a new instance of the <see cref="T:AgeCalculator.Age"/> class and calculates the age between the specified dates.
             </summary>
             <param name="fromDate">The age's from date.</param>
             <param name="toDate">The age's to date.</param>
-            <returns>An instance of <see cref="T:AgeCalculator.Age"/> class containing years, months and days information.</returns>
+            <returns>An instance of <see cref="T:AgeCalculator.Age"/> class containing years, months, days and time information.</returns>
         </member>
         <member name="M:AgeCalculator.Age.Calculate(System.DateTime,System.DateTime)">
             <summary>

@@ -144,7 +144,7 @@ namespace Tests
             var age = new Age(dob, endDate);
 
             _output.WriteLine($"{dob:MM/dd/yyyy HH:mm:ss}:{GetLOrNYear(dob)} - {endDate:MM/dd/yyyy HH:mm:ss}:{GetLOrNYear(endDate)}");
-            _output.WriteLine($"Age: {age.Years}yrs, {age.Months}mos, {age.Days}d, {age.Time}");
+            _output.WriteLine($"Age: {age.Years} years, {age.Months} months, {age.Days} days, {age.Time}");
             Assert.StrictEqual(expectedYears, age.Years);
             Assert.StrictEqual(expectedMonths, age.Months);
             Assert.StrictEqual(expectedDays, age.Days);
