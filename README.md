@@ -1,4 +1,9 @@
-# AgeCalculator
+# Age Calculator
+
+![Nuget](https://img.shields.io/nuget/v/AgeCalculator)
+![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/arman-g/AgeCalculator/.NET/main)
+![GitHub](https://img.shields.io/github/license/arman-g/AgeCalculator)
+
 AgeCalculator is an age calculation library that can be used to calculate the age between two dates and output years, months, days and time components.
 
 ## Dependencies
