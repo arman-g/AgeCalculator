@@ -37,11 +37,11 @@ public void PrintMyAge()
 // Age: 5yr., 11mos., 11d
 
 // Other Outputs:
-// 02/28/2020:L - 02/29/2020:L    Age: 0 years, 0 months, 1 days
-// 02/29/2020:L - 02/29/2020:L    Age: 0 years, 0 months, 0 days
-// 02/29/2020:L - 03/01/2020:L    Age: 0 years, 0 months, 1 days
-// 02/29/1960:L - 02/28/2021:N    Age: 60 years, 11 months, 28 days
-// 02/29/1960:L - 03/01/2021:N    Age: 61 years, 0 months, 1 days
+// 02/28/2020:L - 02/29/2020:L    Age: 0 years, 0 months, 1 days, 00:00:00
+// 02/29/2020:L - 02/29/2020:L    Age: 0 years, 0 months, 0 days, 00:00:00
+// 02/29/2020:L - 03/01/2020:L    Age: 0 years, 0 months, 1 days, 00:00:00
+// 02/29/1960:L - 02/28/2021:N    Age: 60 years, 11 months, 28 days, 00:00:00
+// 02/29/1960:L - 03/01/2021:N    Age: 61 years, 0 months, 1 days, 00:00:00
 
 // 01/05/2020 07:28:12:L - 02/05/2022 06:30:15:N    Age: 2 years, 0 months, 30 days, 23:02:03
 // 02/05/2020 07:28:12:L - 01/05/2022 06:30:15:N    Age: 1 years, 10 months, 28 days, 23:02:03
