@@ -11,7 +11,7 @@ PM> Install-Package AgeCalculator
 
 ## How To Use (Code)
 ``` csharp
-/* There are two ways to use Age calculator */
+/* There are three ways to calculate the age between two dates */
 using AgeCalculator;
 using AgeCalculator.Extensions;
 
@@ -20,15 +20,15 @@ public void PrintMyAge()
     // Date of birth or from date.
     var dob = DateTime.Parse("10/03/2015");
     
-    // Using the Age class constructor.
+    // #1. Using the Age class constructor.
     var myAge = new Age(dob, DateTime.Now); // as of 09/14/2021
     Console.WriteLine($"Age: {myAge}");
     
-    // Using DateTime extension.
-    var myAge = dob.CalculateAge(DateTime.Now); // as of 09/14/2021
+    // #2. Using DateTime extension.
+    myAge = dob.CalculateAge(DateTime.Now); // as of 09/14/2021
     Console.WriteLine($"Age: {myAge}");
     
-    // Using the Age type's static function.
+    // #3. Using the Age type's static function.
     myAge = Age.Calculate(dob, DateTime.Now); // as of 09/14/2021
     Console.WriteLine($"Age: {myAge}");
 }
