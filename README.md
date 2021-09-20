@@ -21,20 +21,20 @@ public void PrintMyAge()
     var dob = DateTime.Parse("10/03/2015");
     
     // #1. Using the Age class constructor.
-    var myAge = new Age(dob, DateTime.Now); // as of 09/14/2021
-    Console.WriteLine($"Age: {myAge}");
+    var age = new Age(dob, DateTime.Today); // as of 09/19/2021
+    Console.WriteLine($"Age: {age.Years} years, {age.Months} months, {age.Days} days");
     
     // #2. Using DateTime extension.
-    myAge = dob.CalculateAge(DateTime.Now); // as of 09/14/2021
-    Console.WriteLine($"Age: {myAge}");
+    age = dob.CalculateAge(DateTime.Today); // as of 09/19/2021
+    Console.WriteLine($"Age: {age.Years} years, {age.Months} months, {age.Days} days");
     
     // #3. Using the Age type's static function.
-    myAge = Age.Calculate(dob, DateTime.Now); // as of 09/14/2021
-    Console.WriteLine($"Age: {myAge}");
+    age = Age.Calculate(dob, DateTime.Today); // as of 09/19/2021
+    Console.WriteLine($"Age: {age.Years} years, {age.Months} months, {age.Days} days");
 }
 
 // Output:
-// Age: 5yr., 11mos., 11d
+// Age: 5 years, 11 months, 16 days
 
 // Other Outputs:
 // 02/28/2020:L - 02/29/2020:L    Age: 0 years, 0 months, 1 days, 00:00:00
