@@ -22,15 +22,15 @@ public void PrintMyAge()
     
     // #1. Using the Age class constructor.
     var age = new Age(dob, DateTime.Today); // as of 09/19/2021
-    Console.WriteLine($"Age: {age.Years} years, {age.Months} months, {age.Days} days");
+    Console.WriteLine($"Age: {age.Years} years, {age.Months} months, {age.Days} days, {age.Time}");
     
     // #2. Using DateTime extension.
     age = dob.CalculateAge(DateTime.Today); // as of 09/19/2021
-    Console.WriteLine($"Age: {age.Years} years, {age.Months} months, {age.Days} days");
+    Console.WriteLine($"Age: {age.Years} years, {age.Months} months, {age.Days} days, {age.Time}");
     
     // #3. Using the Age type's static function.
     age = Age.Calculate(dob, DateTime.Today); // as of 09/19/2021
-    Console.WriteLine($"Age: {age.Years} years, {age.Months} months, {age.Days} days");
+    Console.WriteLine($"Age: {age.Years} years, {age.Months} months, {age.Days} days, {age.Time}");
 }
 
 // Output:
