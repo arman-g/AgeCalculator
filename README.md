@@ -34,7 +34,7 @@ public void PrintMyAge()
 }
 
 // Output:
-// Age: 5 years, 11 months, 16 days
+// Age: 5 years, 11 months, 16 days, 00:00:00
 
 // Other Outputs:
 // 02/28/2020:L - 02/29/2020:L    Age: 0 years, 0 months, 1 days, 00:00:00
