@@ -1,22 +1,40 @@
 ﻿using AgeCalculator;
+using AgeCalculator.Extensions;
 using System;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Tests.Extensions
+namespace Tests
 {
-    public class DateTimeExtensionsTests
+    public class AgeTests
     {
         private readonly ITestOutputHelper _output;
 
-        public DateTimeExtensionsTests(ITestOutputHelper output)
+        public AgeTests(ITestOutputHelper output)
         {
             _output = output;
         }
 
         [Theory]
-        [InlineData("01/05/2021", "01/03/2021", 0, 0, 0, true)]
+        [InlineData("01/05/2021", "01/03/2021")]
+        [InlineData("02/05/2021 7:28:12", "02/05/2021 6:30:15")]
+        public void Invalid_dates(string fromDate, string toDate)
+        {
+            var dob = DateTime.Parse(fromDate);
+            var endDate = DateTime.Parse(toDate);
+            _output.WriteLine("Should throw an exception.");
 
+            // Test initialization method
+            Assert.Throws<ArgumentOutOfRangeException>("fromDate", () => new Age(dob, endDate));
+
+            // Test type's static method
+            Assert.Throws<ArgumentOutOfRangeException>("fromDate", () => Age.Calculate(dob, endDate));
+
+            // Test DateTime extension method
+            Assert.Throws<ArgumentOutOfRangeException>("fromDate", () => dob.CalculateAge(endDate));
+        }
+
+        [Theory]
         // -- N-N -- y1 = y2, m1 = m2
         [InlineData("02/05/2021", "02/05/2021", 0, 0, 0)]
         [InlineData("02/05/2021", "02/07/2021", 0, 0, 2)]
@@ -104,22 +122,45 @@ namespace Tests.Extensions
         [InlineData("02/29/2020", "04/01/2021", 1, 1, 1)]
         [InlineData("01/01/2000", "12/31/2001", 1, 11, 30)]
         [InlineData("02/29/1960", "03/01/2021", 61, 0, 1)]
-        public void Calculate_age(string fromDate, string toDate, int expectedYears, byte expectedMonths, byte expectedDays, bool? exception = false)
+
+        // Include time component
+        [InlineData("02/05/2021 5:28:12", "02/05/2021 6:30:15", 0, 0, 0, 1, 2, 3)]
+        [InlineData("02/05/2021 7:28:12", "02/06/2021 6:30:15", 0, 0, 0, 23, 2, 3)]
+        [InlineData("01/05/2020 7:28:12", "02/05/2022 6:30:15", 2, 0, 30, 23, 2, 3)]
+        [InlineData("02/05/2020 07:28:12", "01/05/2022 06:30:15", 1, 10, 28, 23, 2, 3)]
+        [InlineData("02/05/2020 23:59:59", "01/06/2022 00:00:00", 1, 11, 0, 0, 0, 1)]
+        public void Calculate_age(
+            string fromDate,
+            string toDate,
+            int expectedYears,
+            int expectedMonths,
+            int expectedDays,
+            int? expectedHours = null,
+            int? expectedMinutes = null,
+            int? expectedSeconds = null)
         {
             var dob = DateTime.Parse(fromDate);
             var endDate = DateTime.Parse(toDate);
-            if (exception == true)
+            var age = new Age(dob, endDate);
+
+            _output.WriteLine($"{dob:MM/dd/yyyy HH:mm:ss}:{GetLOrNYear(dob)} - {endDate:MM/dd/yyyy HH:mm:ss}:{GetLOrNYear(endDate)}");
+            _output.WriteLine($"Age: {age.Years}yrs, {age.Months}mos, {age.Days}d, {age.Time}");
+            Assert.StrictEqual(expectedYears, age.Years);
+            Assert.StrictEqual(expectedMonths, age.Months);
+            Assert.StrictEqual(expectedDays, age.Days);
+            if (expectedHours.HasValue)
             {
-                _output.WriteLine("Should throw an exception.");
-                Assert.Throws<ArgumentOutOfRangeException>("fromDate", () => Age.Calculate(dob, endDate));
+                Assert.StrictEqual(expectedHours, age.Time.Hours);
             }
-            else
+
+            if (expectedMinutes.HasValue)
             {
-                var age = Age.Calculate(dob, endDate);
-                _output.WriteLine($"{dob:MM/dd/yyyy}:{GetLOrNYear(dob)} - {endDate:MM/dd/yyyy}:{GetLOrNYear(endDate)} Age: {age}");
-                Assert.Equal(expectedYears, age.Years);
-                Assert.Equal(expectedMonths, age.Months);
-                Assert.Equal(expectedDays, age.Days);
+                Assert.StrictEqual(expectedMinutes, age.Time.Minutes);
+            }
+
+            if (expectedSeconds.HasValue)
+            {
+                Assert.StrictEqual(expectedSeconds, age.Time.Seconds);
             }
         }
 

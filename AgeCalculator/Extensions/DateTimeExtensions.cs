@@ -1,61 +1,25 @@
-﻿/*
- * C# Age Calculation Library
- * https://github.com/arman-g/AgeCalculator
- *
- * Copyright 2021-2022 Arman Ghazanchyan
- * Licensed under The MIT License
- * http://www.opensource.org/licenses/mit-license
- */
-
-using System;
+﻿using System;
 
 namespace AgeCalculator.Extensions
 {
     /// <summary>
-    /// Contains <see cref="DateTime"/> extension methods.
+    /// Contains <see cref="AgeCalculator"/>'s <see cref="DateTime"/> extension methods.
     /// </summary>
     public static class DateTimeExtensions
     {
-        private const byte TotalMonths = 12;
-
         /// <summary>
-        /// Calculate the age between this and '<paramref name="toDate"/>' <see cref="DateTime"/> instances.
+        /// Calculates the age between this and the specified <see cref="DateTime"/> instance.
         /// </summary>
-        /// <param name="fromDate">The age's from date.</param>
-        /// <param name="toDate">The age's to date.</param>
-        /// <returns>An instance of <see cref="Age"/> object containing years, months and days information.</returns>
+        /// <inheritdoc cref="Age(DateTime,DateTime)"/>
         public static Age CalculateAge(
             this DateTime fromDate,
             DateTime toDate)
         {
             if (fromDate > toDate) throw new ArgumentOutOfRangeException(
                 nameof(fromDate),
-                $"This date instance must be less or equal to '{nameof(toDate)}'.");
+                $"This {nameof(DateTime)} must be less or equal to '{nameof(toDate)}'.");
 
-            var daysInMonth = DateTime.DaysInMonth(fromDate.Year, fromDate.Month);
-            var days = toDate.Day - fromDate.Day;
-            var age = new Age
-            {
-                Days = days < 0 ? (byte)(daysInMonth - fromDate.Day + toDate.Day) : (byte)days
-            };
-
-            if (fromDate.Month < toDate.Month)
-            {
-                age.Months = (byte)(toDate.Month - fromDate.Month - (fromDate.Day > toDate.Day ? 1 : 0));
-                age.Years = toDate.Year - fromDate.Year;
-            }
-            else if (fromDate.Month > toDate.Month)
-            {
-                age.Months = (byte)((TotalMonths - fromDate.Month + toDate.Month - (fromDate.Day > toDate.Day ? 1 : 0)));
-                age.Years = toDate.Year - fromDate.Year - 1;
-            }
-            else
-            {
-                age.Months = (byte)(fromDate.Day > toDate.Day ? TotalMonths - 1 : 0);
-                age.Years = toDate.Year - fromDate.Year - (fromDate.Day > toDate.Day ? 1 : 0);
-            }
-
-            return age;
+            return new Age(fromDate, toDate);
         }
     }
 }
