@@ -10,11 +10,6 @@ AgeCalculator is an age calculation library that can be used to calculate the ag
 ## Dependencies
 .NET 5+
 
-## NuGet Package
-```
-PM> Install-Package AgeCalculator
-```
-
 ## How To Use (Code)
 ``` csharp
 /* There are three ways to calculate the age between two dates */
