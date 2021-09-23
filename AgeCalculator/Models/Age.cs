@@ -29,22 +29,22 @@ namespace AgeCalculator
         /// <summary>
         /// Gets the years component of the <see cref="Age"/> class.
         /// </summary>
-        public int Years { get; }
+        public int Years { get; init; }
 
         /// <summary>
         /// Gets the months component of the <see cref="Age"/> class.
         /// </summary>
-        public byte Months { get; }
+        public byte Months { get; init; }
 
         /// <summary>
         /// Gets the days component of the <see cref="Age"/> class.
         /// </summary>
-        public byte Days { get; }
+        public byte Days { get; init; }
 
         /// <summary>
         /// Gets the time component of the <see cref="Age"/> class.
         /// </summary>
-        public TimeSpan Time { get; }
+        public TimeSpan Time { get; init; }
 
         #endregion
 
