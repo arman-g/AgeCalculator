@@ -70,9 +70,8 @@ public void PrintAge()
 // Example 3 - Age: 4 years, 11 months, 27 days, 23:59:59
 ```
 
-## Some More Default Outputs
+## Default Outputs
 ```
-// Other Outputs:
 // 02/28/2020:L - 02/29/2020:L    Age: 0 years, 0 months, 1 days, 00:00:00
 // 02/29/2020:L - 02/29/2020:L    Age: 0 years, 0 months, 0 days, 00:00:00
 // 02/29/2020:L - 03/01/2020:L    Age: 0 years, 0 months, 1 days, 00:00:00
