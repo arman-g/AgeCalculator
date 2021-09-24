@@ -18,7 +18,7 @@ namespace Tests
         [Theory]
         [InlineData("01/05/2021", "01/03/2021")]
         [InlineData("02/05/2021 7:28:12", "02/05/2021 6:30:15")]
-        public void Invalid_dates(string fromDate, string toDate)
+        public void InvalidDates(string fromDate, string toDate)
         {
             var dob = DateTime.Parse(fromDate);
             var endDate = DateTime.Parse(toDate);
@@ -130,10 +130,15 @@ namespace Tests
         [InlineData("02/05/2020 07:28:12", "01/05/2022 06:30:15", 1, 10, 28, 23, 2, 3)]
         [InlineData("02/05/2020 23:59:59", "01/06/2022 00:00:00", 1, 11, 0, 0, 0, 1)]
         [InlineData("02/29/2016", "02/28/2021 00:00:01", 4, 11, 28, 0, 0, 1)]
-        [InlineData("02/29/2016", "03/01/2021 00:00:01", 5, 0, 1, 0, 0, 1)]
+        [InlineData("02/29/2016", "03/01/2021 00:00:01", 5, 0, 1, 0, 0, 1, true)]
         [InlineData("02/29/2016 00:00:02", "02/28/2021 00:00:01", 4, 11, 27, 23, 59, 59)]
-        [InlineData("02/29/2016 00:00:02", "03/01/2021 00:00:01", 5, 0, 0, 23, 59, 59)]
-        public void Calculate_age(
+        [InlineData("02/29/2016 00:00:02", "03/01/2021 00:00:01", 5, 0, 0, 23, 59, 59, true)]
+
+        // For leapers
+        [InlineData("02/29/2016", "02/28/2021", 5, 0, 0, 0, 0, 0, true)]
+        [InlineData("02/29/2016", "02/28/2021 00:00:01", 5, 0, 0, 0, 0, 1, true)]
+        [InlineData("02/29/2016 00:00:02", "02/28/2021 00:00:01", 4, 11, 27, 23, 59, 59, true)]
+        public void CalculateAge(
             string fromDate,
             string toDate,
             int expectedYears,
@@ -141,13 +146,18 @@ namespace Tests
             int expectedDays,
             int? expectedHours = null,
             int? expectedMinutes = null,
-            int? expectedSeconds = null)
+            int? expectedSeconds = null,
+            bool feb29IsFeb28ForLeaper = false)
         {
             var dob = DateTime.Parse(fromDate);
             var endDate = DateTime.Parse(toDate);
-            var age = new Age(dob, endDate);
+            var age = new Age(dob, endDate, feb29IsFeb28ForLeaper);
 
             _output.WriteLine($"{dob:MM/dd/yyyy HH:mm:ss}:{GetLOrNYear(dob)} - {endDate:MM/dd/yyyy HH:mm:ss}:{GetLOrNYear(endDate)}");
+            if (DateTime.IsLeapYear(dob.Year))
+            {
+                _output.WriteLine($"{nameof(feb29IsFeb28ForLeaper)}: {feb29IsFeb28ForLeaper}");
+            }
             _output.WriteLine($"Age: {age.Years} years, {age.Months} months, {age.Days} days, {age.Time}");
             Assert.StrictEqual(expectedYears, age.Years);
             Assert.StrictEqual(expectedMonths, age.Months);

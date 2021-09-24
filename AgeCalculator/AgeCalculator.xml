@@ -9,11 +9,11 @@
             Contains <see cref="N:AgeCalculator"/>'s <see cref="T:System.DateTime"/> extension methods.
             </summary>
         </member>
-        <member name="M:AgeCalculator.Extensions.DateTimeExtensions.CalculateAge(System.DateTime,System.DateTime)">
+        <member name="M:AgeCalculator.Extensions.DateTimeExtensions.CalculateAge(System.DateTime,System.DateTime,System.Boolean)">
             <summary>
             Calculates the age between this and the specified <see cref="T:System.DateTime"/> instance.
             </summary>
-            <inheritdoc cref="M:AgeCalculator.Age.#ctor(System.DateTime,System.DateTime)"/>
+            <inheritdoc cref="M:AgeCalculator.Age.#ctor(System.DateTime,System.DateTime,System.Boolean)"/>
         </member>
         <member name="T:AgeCalculator.Age">
             <summary>
@@ -45,19 +45,21 @@
             Initializes a new instance of the <see cref="T:AgeCalculator.Age"/> class.
             </summary>
         </member>
-        <member name="M:AgeCalculator.Age.#ctor(System.DateTime,System.DateTime)">
+        <member name="M:AgeCalculator.Age.#ctor(System.DateTime,System.DateTime,System.Boolean)">
             <summary>
             Initializes a new instance of the <see cref="T:AgeCalculator.Age"/> class and calculates the age between the specified dates.
             </summary>
             <param name="fromDate">The age's from date.</param>
             <param name="toDate">The age's to date.</param>
+            <param name="isFeb29AsFeb28ForLeaper">A boolean flag indicating whether Feb 29 of a leap year
+            is considered as Feb 28 of a non leap year. By default it is false.</param>
             <returns>An instance of <see cref="T:AgeCalculator.Age"/> class containing years, months, days and time information.</returns>
         </member>
-        <member name="M:AgeCalculator.Age.Calculate(System.DateTime,System.DateTime)">
+        <member name="M:AgeCalculator.Age.Calculate(System.DateTime,System.DateTime,System.Boolean)">
             <summary>
             Calculates the age between two dates.
             </summary>
-            <inheritdoc cref="M:AgeCalculator.Age.#ctor(System.DateTime,System.DateTime)"/>
+            <inheritdoc cref="M:AgeCalculator.Age.#ctor(System.DateTime,System.DateTime,System.Boolean)"/>
         </member>
     </members>
 </doc>

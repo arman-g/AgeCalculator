@@ -23,6 +23,8 @@ namespace AgeCalculator
     public class Age
     {
         private const byte TotalMonths = 12;
+        private const byte Feb28 = 59;
+        private const byte Feb29 = 60;
 
         #region ' Properties '
 
@@ -58,8 +60,13 @@ namespace AgeCalculator
         /// </summary>
         /// <param name="fromDate">The age's from date.</param>
         /// <param name="toDate">The age's to date.</param>
+        /// <param name="isFeb29AsFeb28ForLeaper">A boolean flag indicating whether Feb 29 of a leap year
+        /// is considered as Feb 28 of a non leap year. By default it is false.</param>
         /// <returns>An instance of <see cref="Age"/> class containing years, months, days and time information.</returns>
-        public Age(DateTime fromDate, DateTime toDate)
+        public Age(
+            DateTime fromDate,
+            DateTime toDate,
+            bool isFeb29AsFeb28ForLeaper = false)
         {
             if (fromDate > toDate) throw new ArgumentOutOfRangeException(
                 nameof(fromDate),
@@ -103,15 +110,26 @@ namespace AgeCalculator
             {
                 Time = new TimeSpan(24, 0, 0) - fromDate.TimeOfDay + toDate.TimeOfDay;
             }
+
+            // Re-Calculate if Feb 29 of a leap year is considered as Feb 28 of non leap year.
+            if (!isFeb29AsFeb28ForLeaper || !DateTime.IsLeapYear(fromDate.Year) || DateTime.IsLeapYear(toDate.Year) ||
+                fromDate.DayOfYear != Feb29 || toDate.DayOfYear != Feb28 || Days != 28 ||
+                Time < new TimeSpan(0, 0, 0)) return;
+            ++Years;
+            Months = 0;
+            Days = 0;
         }
 
         /// <summary>
         /// Calculates the age between two dates.
         /// </summary>
-        /// <inheritdoc cref="Age(DateTime,DateTime)"/>
-        public static Age Calculate(DateTime fromDate, DateTime toDate)
+        /// <inheritdoc cref="Age(DateTime,DateTime,bool)"/>
+        public static Age Calculate(
+            DateTime fromDate,
+            DateTime toDate,
+            bool isFeb29AsFeb28ForLeaper = false)
         {
-            return new Age(fromDate, toDate);
+            return new Age(fromDate, toDate, isFeb29AsFeb28ForLeaper);
         }
     }
 }
