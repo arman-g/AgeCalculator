@@ -44,25 +44,26 @@ public void PrintMyAge()
 ``` csharp
 /* In this example, Feb 29 of a leap year is considered as Feb 28 of a non leap year. */
 using AgeCalculator;
+using AgeCalculator.Extensions;
 
 public void PrintAge()
 {
     // Example 1
     var dob = DateTime.Parse("02/29/2016");
     var toDay = DateTime.Parse("02/28/2021");
-    var age = new Age(dob, toDay, true); // <- set 'isFeb29AsFeb28ForLeaper' flag to True. Default is False.
+    var age = new Age(dob, toDay, true); // <- Switch the flag ON. Default is Off.
     Console.WriteLine($"Example 1 - Age: {age.Years} years, {age.Months} months, {age.Days} days, {age.Time}");
     
     // Example 2
     dob = DateTime.Parse("02/29/2016");
     toDay = DateTime.Parse("02/28/2021 00:00:01");
-    age = new Age(dob, toDay, true); // <- set 'isFeb29AsFeb28ForLeaper' flag to True. Default is False.
+    age = dob.CalculateAge(toDay, true); // <- Switch the flag ON. Default is Off.
     Console.WriteLine($"Example 2 - Age: {age.Years} years, {age.Months} months, {age.Days} days, {age.Time}");
     
     // Example 3
     dob = DateTime.Parse("02/29/2016 00:00:02");
     toDay = DateTime.Parse("02/28/2021 00:00:01");
-    age = new Age(dob, toDay, true); // <- set 'isFeb29AsFeb28ForLeaper' flag to True. Default is False.
+    age = Age.Calculate(dob, toDay, true); // <- Switch the flag ON. Default is Off.
     Console.WriteLine($"Example 3 - Age: {age.Years} years, {age.Months} months, {age.Days} days, {age.Time}");
 }
 
