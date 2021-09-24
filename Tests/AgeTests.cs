@@ -147,16 +147,16 @@ namespace Tests
             int? expectedHours = null,
             int? expectedMinutes = null,
             int? expectedSeconds = null,
-            bool feb29IsFeb28ForLeaper = false)
+            bool isFeb29AsFeb28ForLeaper = false)
         {
             var dob = DateTime.Parse(fromDate);
             var endDate = DateTime.Parse(toDate);
-            var age = new Age(dob, endDate, feb29IsFeb28ForLeaper);
+            var age = new Age(dob, endDate, isFeb29AsFeb28ForLeaper);
 
             _output.WriteLine($"{dob:MM/dd/yyyy HH:mm:ss}:{GetLOrNYear(dob)} - {endDate:MM/dd/yyyy HH:mm:ss}:{GetLOrNYear(endDate)}");
             if (DateTime.IsLeapYear(dob.Year))
             {
-                _output.WriteLine($"{nameof(feb29IsFeb28ForLeaper)}: {feb29IsFeb28ForLeaper}");
+                _output.WriteLine($"{nameof(isFeb29AsFeb28ForLeaper)}: {isFeb29AsFeb28ForLeaper}");
             }
             _output.WriteLine($"Age: {age.Years} years, {age.Months} months, {age.Days} days, {age.Time}");
             Assert.StrictEqual(expectedYears, age.Years);
