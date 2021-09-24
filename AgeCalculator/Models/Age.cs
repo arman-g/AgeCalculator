@@ -112,9 +112,12 @@ namespace AgeCalculator
             }
 
             // Re-Calculate if Feb 29 of a leap year is considered as Feb 28 of non leap year.
-            if (!isFeb29AsFeb28ForLeaper || !DateTime.IsLeapYear(fromDate.Year) || DateTime.IsLeapYear(toDate.Year) ||
-                fromDate.DayOfYear != Feb29 || toDate.DayOfYear != Feb28 || Days != 28 ||
-                Time < new TimeSpan(0, 0, 0)) return;
+            if (!isFeb29AsFeb28ForLeaper ||
+                !DateTime.IsLeapYear(fromDate.Year) ||
+                DateTime.IsLeapYear(toDate.Year) ||
+                fromDate.DayOfYear != Feb29 ||
+                toDate.DayOfYear != Feb28 ||
+                Days != 28) return;
             ++Years;
             Months = 0;
             Days = 0;
