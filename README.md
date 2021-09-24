@@ -36,7 +36,42 @@ public void PrintMyAge()
 
 // Output:
 // Age: 5 years, 11 months, 16 days, 00:00:00
+```
 
+
+``` csharp
+/* In this example, Feb 29 of a leap year is considered as Feb 28 of a non leap year. */
+using AgeCalculator;
+
+public void PrintAge()
+{
+    // Example 1
+    var dob = DateTime.Parse("02/29/2016");
+    var toDay = DateTime.Parse("02/28/2021");
+    var age = new Age(dob, toDay, true); // <- set 'isFeb29AsFeb28ForLeaper' flag to True. Default is False.
+    Console.WriteLine($"Example 1 - Age: {age.Years} years, {age.Months} months, {age.Days} days, {age.Time}");
+    
+    // Example 2
+    dob = DateTime.Parse("02/29/2016");
+    toDay = DateTime.Parse("02/28/2021 00:00:01");
+    age = new Age(dob, toDay, true); // <- set 'isFeb29AsFeb28ForLeaper' flag to True. Default is False.
+    Console.WriteLine($"Example 2 - Age: {age.Years} years, {age.Months} months, {age.Days} days, {age.Time}");
+    
+    // Example 3
+    dob = DateTime.Parse("02/29/2016 00:00:02");
+    toDay = DateTime.Parse("02/28/2021 00:00:01");
+    age = new Age(dob, toDay, true); // <- set 'isFeb29AsFeb28ForLeaper' flag to True. Default is False.
+    Console.WriteLine($"Example 3 - Age: {age.Years} years, {age.Months} months, {age.Days} days, {age.Time}");
+}
+
+// Output:
+// Example 1 - Age: 5 years, 0 months, 0 days, 00:00:00
+// Example 2 - Age: 5 years, 0 months, 0 days, 00:00:01
+// Example 3 - Age: 4 years, 11 months, 27 days, 23:59:59
+```
+
+## Some More Default Outputs
+```
 // Other Outputs:
 // 02/28/2020:L - 02/29/2020:L    Age: 0 years, 0 months, 1 days, 00:00:00
 // 02/29/2020:L - 02/29/2020:L    Age: 0 years, 0 months, 0 days, 00:00:00
