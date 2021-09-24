@@ -7,6 +7,8 @@
 
 AgeCalculator is an age calculation library that can be used to calculate the age between two dates and output years, months, days and time components.
 
+In addition to the default calculation algorithm, it can be configured so that Feb 29 of a leap year be considered as Feb 28 of a non-leap year with switch of a flag. By default, the flag is off.
+
 ## Dependencies
 .NET 5+
 
