@@ -51,19 +51,19 @@ public void PrintAge()
     // Example 1
     var dob = DateTime.Parse("02/29/2016");
     var toDay = DateTime.Parse("02/28/2021");
-    var age = new Age(dob, toDay, true); // <- Switch the flag ON. Default is Off.
+    var age = new Age(dob, toDay, true); // <- Switch the flag ON. Default is OFF.
     Console.WriteLine($"Example 1 - Age: {age.Years} years, {age.Months} months, {age.Days} days, {age.Time}");
     
     // Example 2
     dob = DateTime.Parse("02/29/2016");
     toDay = DateTime.Parse("02/28/2021 00:00:01");
-    age = dob.CalculateAge(toDay, true); // <- Switch the flag ON. Default is Off.
+    age = dob.CalculateAge(toDay, true); // <- Switch the flag ON. Default is OFF.
     Console.WriteLine($"Example 2 - Age: {age.Years} years, {age.Months} months, {age.Days} days, {age.Time}");
     
     // Example 3
     dob = DateTime.Parse("02/29/2016 00:00:02");
     toDay = DateTime.Parse("02/28/2021 00:00:01");
-    age = Age.Calculate(dob, toDay, true); // <- Switch the flag ON. Default is Off.
+    age = Age.Calculate(dob, toDay, true); // <- Switch the flag ON. Default is OFF.
     Console.WriteLine($"Example 3 - Age: {age.Years} years, {age.Months} months, {age.Days} days, {age.Time}");
 }
 
