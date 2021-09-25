@@ -20,18 +20,19 @@ namespace Tests
         [InlineData("02/05/2021 7:28:12", "02/05/2021 6:30:15")]
         public void InvalidDates(string fromDate, string toDate)
         {
+            const string paramName = "fromDate";
             var dob = DateTime.Parse(fromDate);
             var endDate = DateTime.Parse(toDate);
             _output.WriteLine("Should throw an exception.");
 
             // Test initialization method
-            Assert.Throws<ArgumentOutOfRangeException>("fromDate", () => new Age(dob, endDate));
+            Assert.Throws<ArgumentOutOfRangeException>(paramName, () => new Age(dob, endDate));
 
             // Test type's static method
-            Assert.Throws<ArgumentOutOfRangeException>("fromDate", () => Age.Calculate(dob, endDate));
+            Assert.Throws<ArgumentOutOfRangeException>(paramName, () => Age.Calculate(dob, endDate));
 
             // Test DateTime extension method
-            Assert.Throws<ArgumentOutOfRangeException>("fromDate", () => dob.CalculateAge(endDate));
+            Assert.Throws<ArgumentOutOfRangeException>(paramName, () => dob.CalculateAge(endDate));
         }
 
         [Theory]
@@ -98,6 +99,7 @@ namespace Tests
         [InlineData("06/02/2017", "05/01/2018", 0, 10, 29)]
         [InlineData("06/02/2017", "05/02/2018", 0, 11, 0)]
         [InlineData("06/02/2017", "05/03/2018", 0, 11, 1)]
+        [InlineData("12/31/2018", "01/31/2019", 0, 1, 0)]
 
         // Special cases
         // -- L-L -- y1 < y2, m1 = m2
@@ -147,21 +149,22 @@ namespace Tests
             int? expectedHours = null,
             int? expectedMinutes = null,
             int? expectedSeconds = null,
-            bool isFeb29AsFeb28ForLeaper = false)
+            bool isFeb28AYearCycleForLeapling = false)
         {
             var dob = DateTime.Parse(fromDate);
             var endDate = DateTime.Parse(toDate);
-            var age = new Age(dob, endDate, isFeb29AsFeb28ForLeaper);
+            var age = new Age(dob, endDate, isFeb28AYearCycleForLeapling);
 
             _output.WriteLine($"{dob:MM/dd/yyyy HH:mm:ss}:{GetLOrNYear(dob)} - {endDate:MM/dd/yyyy HH:mm:ss}:{GetLOrNYear(endDate)}");
             if (DateTime.IsLeapYear(dob.Year))
             {
-                _output.WriteLine($"{nameof(isFeb29AsFeb28ForLeaper)}: {isFeb29AsFeb28ForLeaper}");
+                _output.WriteLine($"{nameof(isFeb28AYearCycleForLeapling)}: {isFeb28AYearCycleForLeapling}");
             }
             _output.WriteLine($"Age: {age.Years} years, {age.Months} months, {age.Days} days, {age.Time}");
             Assert.StrictEqual(expectedYears, age.Years);
             Assert.StrictEqual(expectedMonths, age.Months);
             Assert.StrictEqual(expectedDays, age.Days);
+            Assert.StrictEqual(0, age.Time.Days);
             if (expectedHours.HasValue)
             {
                 Assert.StrictEqual(expectedHours, age.Time.Hours);

@@ -16,16 +16,12 @@ namespace AgeCalculator
     /// Represents <see cref="Age"/> class to hold years, months, days and time information.
     /// </summary>
     [DebuggerDisplay(
-        nameof(Years) + " = {" + nameof(Years) + "}, " +
-        nameof(Months) + " = {" + nameof(Months) + "}, " +
-        nameof(Days) + " = {" + nameof(Days) + "}, " +
-        nameof(Time) + " = {" + nameof(Time) + "}")]
+        "{" + nameof(Years) + "} " + nameof(Years) + ", " +
+        "{" + nameof(Months) + "} " + nameof(Months) + ", " +
+        "{" + nameof(Days) + "} " + nameof(Days) + ", " +
+        "{" + nameof(Time) + "}")]
     public class Age
     {
-        private const byte TotalMonths = 12;
-        private const byte Feb28 = 59;
-        private const byte Feb29 = 60;
-
         #region ' Properties '
 
         /// <summary>
@@ -60,64 +56,54 @@ namespace AgeCalculator
         /// </summary>
         /// <param name="fromDate">The age's from date.</param>
         /// <param name="toDate">The age's to date.</param>
-        /// <param name="isFeb29AsFeb28ForLeaper">A boolean flag indicating whether Feb 29 of a leap year
-        /// is considered as Feb 28 of a non leap year. By default it is false.</param>
+        /// <param name="isFeb28AYearCycleForLeapling">A boolean flag indicating whether <b>February 28<sup>th</sup></b> of a non-leap year
+        /// is considered the end of 1-year cycle for a leapling. By default it is false.</param>
+        /// <remarks>Supports <b>Gregorian</b> calendar only.</remarks>
         /// <returns>An instance of <see cref="Age"/> class containing years, months, days and time information.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="fromDate"/> is considered greater than <paramref name="toDate"/>.</exception>
         public Age(
             DateTime fromDate,
             DateTime toDate,
-            bool isFeb29AsFeb28ForLeaper = false)
+            bool isFeb28AYearCycleForLeapling = false)
         {
             if (fromDate > toDate) throw new ArgumentOutOfRangeException(
                 nameof(fromDate),
                 $"The '{nameof(fromDate)}' must be less or equal to '{nameof(toDate)}'.");
 
-            var remainderDay = 0;
-            if (fromDate.TimeOfDay > toDate.TimeOfDay)
-            {
-                --remainderDay;
-            }
+            const byte totalMonths = 12;
+            const byte feb28 = 59;
+            const byte feb29 = 60;
 
-            // Calculate years and months components.
-            var isOneMonthLess = fromDate.Day > (toDate.Day + remainderDay);
-            if (fromDate.Month < toDate.Month)
+            // Calculate years and months
+            var remainderDay = fromDate.TimeOfDay > toDate.TimeOfDay ? 1 : 0; // One less day
+            var remainderMonth = (byte)(fromDate.Day > toDate.Day - remainderDay ? 1 : 0); // One less month
+            if (fromDate.Month == toDate.Month)
             {
-                Years = toDate.Year - fromDate.Year;
-                Months = (byte)(toDate.Month - fromDate.Month - (isOneMonthLess ? 1 : 0));
-            }
-            else if (fromDate.Month > toDate.Month)
-            {
-                Years = toDate.Year - fromDate.Year - 1;
-                Months = (byte)((TotalMonths - fromDate.Month + toDate.Month - (isOneMonthLess ? 1 : 0)));
+                Years = toDate.Year - fromDate.Year - remainderMonth;
+                Months = (byte)((totalMonths - remainderMonth) * remainderMonth);
             }
             else
             {
-                Years = toDate.Year - fromDate.Year - (isOneMonthLess ? 1 : 0);
-                Months = (byte)(isOneMonthLess ? TotalMonths - 1 : 0);
+                var months = fromDate.Month > toDate.Month ? totalMonths : 0;
+                Years = toDate.Year - fromDate.Year - months / totalMonths;
+                Months = (byte)(months + toDate.Month - fromDate.Month - remainderMonth);
             }
 
-            // Calculate days component
-            var daysInMonth = DateTime.DaysInMonth(fromDate.Year, fromDate.Month);
-            var days = toDate.Day + remainderDay - fromDate.Day;
-            Days = days < 0 ? (byte)(daysInMonth - fromDate.Day + toDate.Day + remainderDay) : (byte)days;
+            // Calculate days
+            var days = (toDate.Day - remainderDay - fromDate.Day);
+            Days = (byte)(days < 0 ? DateTime.DaysInMonth(fromDate.Year, fromDate.Month) + days : days);
 
-            // Calculate time component
-            if (fromDate.TimeOfDay < toDate.TimeOfDay)
-            {
-                Time = toDate.TimeOfDay - fromDate.TimeOfDay;
-            }
-            else if (fromDate.TimeOfDay > toDate.TimeOfDay)
-            {
-                Time = new TimeSpan(24, 0, 0) - fromDate.TimeOfDay + toDate.TimeOfDay;
-            }
+            // Calculate time
+            Time = TimeSpan.FromDays(remainderDay) + toDate.TimeOfDay - fromDate.TimeOfDay;
 
-            // Re-Calculate if Feb 29 of a leap year is considered as Feb 28 of non leap year.
-            if (!isFeb29AsFeb28ForLeaper ||
+            // Adjust years, months and days if Feb 29 of a leap year is considered as Feb 28 of non-leap year.
+            if (!isFeb28AYearCycleForLeapling ||
                 !DateTime.IsLeapYear(fromDate.Year) ||
                 DateTime.IsLeapYear(toDate.Year) ||
-                fromDate.DayOfYear != Feb29 ||
-                toDate.DayOfYear != Feb28 ||
+                fromDate.DayOfYear != feb29 ||
+                toDate.DayOfYear != feb28 ||
                 Days != 28) return;
+
             ++Years;
             Months = 0;
             Days = 0;
@@ -130,9 +116,9 @@ namespace AgeCalculator
         public static Age Calculate(
             DateTime fromDate,
             DateTime toDate,
-            bool isFeb29AsFeb28ForLeaper = false)
+            bool isFeb28AYearCycleForLeapling = false)
         {
-            return new Age(fromDate, toDate, isFeb29AsFeb28ForLeaper);
+            return new Age(fromDate, toDate, isFeb28AYearCycleForLeapling);
         }
     }
 }
