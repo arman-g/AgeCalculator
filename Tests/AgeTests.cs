@@ -153,7 +153,7 @@ namespace Tests
         {
             var dob = DateTime.Parse(fromDate);
             var endDate = DateTime.Parse(toDate);
-            var age = new Age(dob, endDate, isFeb28AYearCycleForLeapling);
+            var age = dob.CalculateAge(endDate, isFeb28AYearCycleForLeapling);
 
             _output.WriteLine($"{dob:MM/dd/yyyy HH:mm:ss}:{GetLOrNYear(dob)} - {endDate:MM/dd/yyyy HH:mm:ss}:{GetLOrNYear(endDate)}");
             if (DateTime.IsLeapYear(dob.Year))
