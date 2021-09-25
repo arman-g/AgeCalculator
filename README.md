@@ -5,7 +5,7 @@
 [![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/arman-g/AgeCalculator/.NET/main)](https://github.com/arman-g/AgeCalculator/actions)
 [![GitHub issues](https://img.shields.io/github/issues/arman-g/AgeCalculator)](https://github.com/arman-g/AgeCalculator/issues)
 
-The **Age Calculator** is a library *(based on **Gregorian** calendar)* which can be used to calculate the age between two dates and output years, months, days and time components.
+The **Age Calculator** is a library *(based on the **Gregorian** calendar)* which can be used to calculate the age between two dates and output years, months, days and time components.
 
 In addition to the default calculation algorithm, it can be configured so that Feb 29 of a leap year be considered as Feb 28 of a non-leap year with switch of a flag. By default, the flag is off.
 
