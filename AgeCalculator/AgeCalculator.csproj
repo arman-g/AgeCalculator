@@ -4,7 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <Authors>Arman Ghazanchyan</Authors>
     <Company>AG</Company>
-    <Description>AgeCalculator is an age calculation library that can be used to calculate the age between two dates and output years, months, days and time components. Supports Gregorian calendar only.</Description>
+    <Description>The Age Calculator is a library (based on the Gregorian calendar) which can be used to calculate the age between two dates and output years, months, days and time components.</Description>
     <Product>Age Calculator</Product>
     <RepositoryUrl>https://github.com/arman-g/AgeCalculator</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>

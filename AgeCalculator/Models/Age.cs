@@ -58,7 +58,7 @@ namespace AgeCalculator
         /// <param name="toDate">The age's to date.</param>
         /// <param name="isFeb28AYearCycleForLeapling">A boolean flag indicating whether <b>February 28<sup>th</sup></b> of a non-leap year
         /// is considered the end of 1-year cycle for a leapling. By default it is false.</param>
-        /// <remarks>Supports <b>Gregorian</b> calendar only.</remarks>
+        /// <remarks>Supports the <b>Gregorian</b> calendar only.</remarks>
         /// <returns>An instance of <see cref="Age"/> class containing years, months, days and time information.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="fromDate"/> is considered greater than <paramref name="toDate"/>.</exception>
         public Age(
