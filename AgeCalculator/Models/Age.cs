@@ -76,7 +76,7 @@ namespace AgeCalculator
 
             // Calculate years and months
             var remainderDay = fromDate.TimeOfDay > toDate.TimeOfDay ? 1 : 0; // One less day
-            var remainderMonth = (byte)(fromDate.Day > toDate.Day - remainderDay ? 1 : 0); // One less month
+            var remainderMonth = fromDate.Day > toDate.Day - remainderDay ? 1 : 0; // One less month
             if (fromDate.Month == toDate.Month)
             {
                 Years = toDate.Year - fromDate.Year - remainderMonth;
