@@ -18,21 +18,19 @@ namespace Tests
         [Theory]
         [InlineData("01/05/2021", "01/03/2021")]
         [InlineData("02/05/2021 7:28:12", "02/05/2021 6:30:15")]
-        public void InvalidDates(string fromDate, string toDate)
+        public void InvalidDates(DateTime fromDate, DateTime toDate)
         {
             const string paramName = "fromDate";
-            var dob = DateTime.Parse(fromDate);
-            var endDate = DateTime.Parse(toDate);
             _output.WriteLine("Should throw an exception.");
 
             // Test initialization method
-            Assert.Throws<ArgumentOutOfRangeException>(paramName, () => new Age(dob, endDate));
+            Assert.Throws<ArgumentOutOfRangeException>(paramName, () => new Age(fromDate, toDate));
 
             // Test type's static method
-            Assert.Throws<ArgumentOutOfRangeException>(paramName, () => Age.Calculate(dob, endDate));
+            Assert.Throws<ArgumentOutOfRangeException>(paramName, () => Age.Calculate(fromDate, toDate));
 
             // Test DateTime extension method
-            Assert.Throws<ArgumentOutOfRangeException>(paramName, () => dob.CalculateAge(endDate));
+            Assert.Throws<ArgumentOutOfRangeException>(paramName, () => fromDate.CalculateAge(toDate));
         }
 
         [Theory]
@@ -141,8 +139,8 @@ namespace Tests
         [InlineData("02/29/2016", "02/28/2021 00:00:01", 5, 0, 0, 0, 0, 1, true)]
         [InlineData("02/29/2016 00:00:02", "02/28/2021 00:00:01", 4, 11, 27, 23, 59, 59, true)]
         public void CalculateAge(
-            string fromDate,
-            string toDate,
+            DateTime fromDate,
+            DateTime toDate,
             int expectedYears,
             int expectedMonths,
             int expectedDays,
@@ -151,12 +149,9 @@ namespace Tests
             int? expectedSeconds = null,
             bool isFeb28AYearCycleForLeapling = false)
         {
-            var dob = DateTime.Parse(fromDate);
-            var endDate = DateTime.Parse(toDate);
-            var age = dob.CalculateAge(endDate, isFeb28AYearCycleForLeapling);
-
-            _output.WriteLine($"{dob:MM/dd/yyyy HH:mm:ss}:{GetLOrNYear(dob)} - {endDate:MM/dd/yyyy HH:mm:ss}:{GetLOrNYear(endDate)}");
-            if (DateTime.IsLeapYear(dob.Year))
+            var age = fromDate.CalculateAge(toDate, isFeb28AYearCycleForLeapling);
+            _output.WriteLine($"{fromDate:MM/dd/yyyy HH:mm:ss}:{GetLOrNYear(fromDate)} - {toDate:MM/dd/yyyy HH:mm:ss}:{GetLOrNYear(toDate)}");
+            if (DateTime.IsLeapYear(fromDate.Year))
             {
                 _output.WriteLine($"{nameof(isFeb28AYearCycleForLeapling)}: {isFeb28AYearCycleForLeapling}");
             }
