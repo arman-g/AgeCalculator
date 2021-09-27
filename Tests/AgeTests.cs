@@ -149,7 +149,7 @@ namespace Tests
             int? expectedSeconds = null,
             bool isFeb28AYearCycleForLeapling = false)
         {
-            var age = fromDate.CalculateAge(toDate, isFeb28AYearCycleForLeapling);
+            var age = Age.Calculate(fromDate, toDate, isFeb28AYearCycleForLeapling);
             _output.WriteLine($"{fromDate:MM/dd/yyyy HH:mm:ss}:{GetLOrNYear(fromDate)} - {toDate:MM/dd/yyyy HH:mm:ss}:{GetLOrNYear(toDate)}");
             if (DateTime.IsLeapYear(fromDate.Year))
             {
