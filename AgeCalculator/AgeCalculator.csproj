@@ -8,8 +8,8 @@
     <Product>Age Calculator</Product>
     <RepositoryUrl>https://github.com/arman-g/AgeCalculator</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <PackageTags>age calculator</PackageTags>
-    <Version>1.2.1</Version>
+    <PackageTags>Age Calculator Calculation Calculate Years Old</PackageTags>
+    <Version>1.2.2</Version>
     <PackageReleaseNotes>For sample usage see the REDME file under the repository.</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/arman-g/AgeCalculator</PackageProjectUrl>
     <ApplicationIcon />

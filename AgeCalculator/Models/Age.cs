@@ -73,33 +73,41 @@ namespace AgeCalculator
             const byte totalMonths = 12;
             const byte feb28 = 59;
             const byte feb29 = 60;
+            var fromDateDay = fromDate.Day;
+            var toDateDay = toDate.Day;
+            var fromDateMonth = fromDate.Month;
+            var toDateMonth = toDate.Month;
+            var fromDateYear = fromDate.Year;
+            var toDateYear = toDate.Year;
+            var fromDateTimeOfDay = fromDate.TimeOfDay;
+            var toDateTimeOfDay = toDate.TimeOfDay;
 
             // Calculate years and months
-            var remainderDay = fromDate.TimeOfDay > toDate.TimeOfDay ? 1 : 0; // One less day
-            var remainderMonth = fromDate.Day > toDate.Day - remainderDay ? 1 : 0; // One less month
-            if (fromDate.Month == toDate.Month)
+            var remainderDay = fromDateTimeOfDay > toDateTimeOfDay ? 1 : 0; // One less day
+            var remainderMonth = fromDateDay > toDateDay - remainderDay ? 1 : 0; // One less month
+            if (fromDateMonth == toDateMonth)
             {
-                Years = toDate.Year - fromDate.Year - remainderMonth;
+                Years = toDateYear - fromDateYear - remainderMonth;
                 Months = (byte)((totalMonths - remainderMonth) * remainderMonth);
             }
             else
             {
-                var months = fromDate.Month > toDate.Month ? totalMonths : 0;
-                Years = toDate.Year - fromDate.Year - months / totalMonths;
-                Months = (byte)(months + toDate.Month - fromDate.Month - remainderMonth);
+                var months = fromDateMonth > toDateMonth ? totalMonths : 0;
+                Years = toDateYear - fromDateYear - months / totalMonths;
+                Months = (byte)(months + toDateMonth - fromDateMonth - remainderMonth);
             }
 
             // Calculate days
-            var days = (toDate.Day - remainderDay - fromDate.Day);
-            Days = (byte)(days < 0 ? DateTime.DaysInMonth(fromDate.Year, fromDate.Month) + days : days);
+            var days = (toDateDay - remainderDay - fromDateDay);
+            Days = (byte)(days < 0 ? DateTime.DaysInMonth(fromDateYear, fromDateMonth) + days : days);
 
             // Calculate time
-            Time = TimeSpan.FromDays(remainderDay) + toDate.TimeOfDay - fromDate.TimeOfDay;
+            Time = TimeSpan.FromDays(remainderDay) + toDateTimeOfDay - fromDateTimeOfDay;
 
             // Adjust years, months and days if Feb 29 of a leap year is considered as Feb 28 of non-leap year.
             if (!isFeb28AYearCycleForLeapling ||
-                !DateTime.IsLeapYear(fromDate.Year) ||
-                DateTime.IsLeapYear(toDate.Year) ||
+                !DateTime.IsLeapYear(fromDateYear) ||
+                DateTime.IsLeapYear(toDateYear) ||
                 fromDate.DayOfYear != feb29 ||
                 toDate.DayOfYear != feb28 ||
                 Days != 28) return;
