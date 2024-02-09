@@ -15,6 +15,21 @@ namespace Tests
             _output = output;
         }
 
+        [Fact]
+        public void TotalValues()
+        {
+            var fromDate = DateTime.Parse("01/01/2023");
+            var toDate = DateTime.Parse("01/01/2024");
+            var age = fromDate.CalculateAge(toDate);
+
+            Assert.StrictEqual(365, age.TotalDays);
+            Assert.StrictEqual(8760, age.TotalHours);
+            Assert.StrictEqual(525600, age.TotalMinutes);
+            Assert.StrictEqual(31536000, age.TotalSeconds);
+            Assert.StrictEqual(31536000000, age.TotalMilliseconds);
+            Assert.StrictEqual(315360000000000, age.Ticks);
+        }
+
         [Theory]
         [InlineData("01/05/2021", "01/03/2021")]
         [InlineData("02/05/2021 7:28:12", "02/05/2021 6:30:15")]

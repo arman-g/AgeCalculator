@@ -22,6 +22,10 @@ namespace AgeCalculator
         "{" + nameof(Time) + "}")]
     public class Age
     {
+        private readonly DateTime _fromDateTime;
+        private readonly DateTime _toDateTime;
+        private TimeSpan? _difference;
+
         #region ' Properties '
 
         /// <summary>
@@ -44,12 +48,85 @@ namespace AgeCalculator
         /// </summary>
         public TimeSpan Time { get; init; }
 
-        #endregion
+        /// <summary>
+        /// Gets the value of the current <see cref="Age" /> class expressed in whole and fractional days.
+        /// </summary>
+        /// <returns>The total number of days represented by this instance.</returns>
+        public double TotalDays
+        {
+            get
+            {
+                _difference ??= _toDateTime.Subtract(_fromDateTime);
+                return _difference.Value.TotalDays;
+            }
+        }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Age"/> class.
+        /// Gets the value of the current <see cref="Age" /> class expressed in whole and fractional hours.
         /// </summary>
-        public Age() { }
+        /// <returns>The total number of hours represented by this instance.</returns>
+        public double TotalHours
+        {
+            get
+            {
+                _difference ??= _toDateTime.Subtract(_fromDateTime);
+                return _difference.Value.TotalHours;
+            }
+        }
+
+        /// <summary>
+        /// Gets the value of the current <see cref="Age" /> class expressed in whole and fractional minutes.
+        /// </summary>
+        /// <returns>The total number of minutes represented by this instance.</returns>
+        public double TotalMinutes
+        {
+            get
+            {
+                _difference ??= _toDateTime.Subtract(_fromDateTime);
+                return _difference.Value.TotalMinutes;
+            }
+        }
+
+        /// <summary>
+        /// Gets the value of the current <see cref="Age" /> class expressed in whole and fractional seconds.
+        /// </summary>
+        /// <returns>The total number of seconds represented by this instance.</returns>
+        public double TotalSeconds
+        {
+            get
+            {
+                _difference ??= _toDateTime.Subtract(_fromDateTime);
+                return _difference.Value.TotalSeconds;
+            }
+        }
+
+        /// <summary>
+        /// Gets the value of the current <see cref="Age" /> class expressed in whole and fractional milliseconds.
+        /// </summary>
+        /// <returns>The total number of milliseconds represented by this instance.</returns>
+        public double TotalMilliseconds
+        {
+            get
+            {
+                _difference ??= _toDateTime.Subtract(_fromDateTime);
+                return _difference.Value.TotalMilliseconds;
+            }
+        }
+
+        /// <summary>
+        /// Gets the number of ticks that represent the value of the current <see cref="Age" /> class.
+        /// </summary>
+        /// <returns>The number of ticks contained in this instance.</returns>
+        public long Ticks
+        {
+            get
+            {
+                _difference ??= _toDateTime.Subtract(_fromDateTime);
+                return _difference.Value.Ticks;
+            }
+        }
+
+        #endregion
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Age"/> class and calculates the age between the specified dates.
@@ -70,17 +147,20 @@ namespace AgeCalculator
                 nameof(fromDate),
                 $"The '{nameof(fromDate)}' must be less or equal to '{nameof(toDate)}'.");
 
+            _fromDateTime = fromDate;
+            _toDateTime = toDate;
+
             const byte totalMonths = 12;
             const byte feb28 = 59;
             const byte feb29 = 60;
-            var fromDateDay = fromDate.Day;
-            var toDateDay = toDate.Day;
-            var fromDateMonth = fromDate.Month;
-            var toDateMonth = toDate.Month;
-            var fromDateYear = fromDate.Year;
-            var toDateYear = toDate.Year;
-            var fromDateTimeOfDay = fromDate.TimeOfDay;
-            var toDateTimeOfDay = toDate.TimeOfDay;
+            var fromDateDay = _fromDateTime.Day;
+            var toDateDay = _toDateTime.Day;
+            var fromDateMonth = _fromDateTime.Month;
+            var toDateMonth = _toDateTime.Month;
+            var fromDateYear = _fromDateTime.Year;
+            var toDateYear = _toDateTime.Year;
+            var fromDateTimeOfDay = _fromDateTime.TimeOfDay;
+            var toDateTimeOfDay = _toDateTime.TimeOfDay;
 
             // Calculate years and months
             var remainderDay = fromDateTimeOfDay > toDateTimeOfDay ? 1 : 0; // One less day
@@ -108,8 +188,8 @@ namespace AgeCalculator
             if (!isFeb28AYearCycleForLeapling ||
                 !DateTime.IsLeapYear(fromDateYear) ||
                 DateTime.IsLeapYear(toDateYear) ||
-                fromDate.DayOfYear != feb29 ||
-                toDate.DayOfYear != feb28 ||
+                _fromDateTime.DayOfYear != feb29 ||
+                _toDateTime.DayOfYear != feb28 ||
                 Days != 28) return;
 
             ++Years;

@@ -41,10 +41,41 @@
             Gets the time component of the <see cref="T:AgeCalculator.Age"/> class.
             </summary>
         </member>
-        <member name="M:AgeCalculator.Age.#ctor">
+        <member name="P:AgeCalculator.Age.TotalDays">
             <summary>
-            Initializes a new instance of the <see cref="T:AgeCalculator.Age"/> class.
+            Gets the value of the current <see cref="T:AgeCalculator.Age" /> class expressed in whole and fractional days.
             </summary>
+            <returns>The total number of days represented by this instance.</returns>
+        </member>
+        <member name="P:AgeCalculator.Age.TotalHours">
+            <summary>
+            Gets the value of the current <see cref="T:AgeCalculator.Age" /> class expressed in whole and fractional hours.
+            </summary>
+            <returns>The total number of hours represented by this instance.</returns>
+        </member>
+        <member name="P:AgeCalculator.Age.TotalMinutes">
+            <summary>
+            Gets the value of the current <see cref="T:AgeCalculator.Age" /> class expressed in whole and fractional minutes.
+            </summary>
+            <returns>The total number of minutes represented by this instance.</returns>
+        </member>
+        <member name="P:AgeCalculator.Age.TotalSeconds">
+            <summary>
+            Gets the value of the current <see cref="T:AgeCalculator.Age" /> class expressed in whole and fractional seconds.
+            </summary>
+            <returns>The total number of seconds represented by this instance.</returns>
+        </member>
+        <member name="P:AgeCalculator.Age.TotalMilliseconds">
+            <summary>
+            Gets the value of the current <see cref="T:AgeCalculator.Age" /> class expressed in whole and fractional milliseconds.
+            </summary>
+            <returns>The total number of milliseconds represented by this instance.</returns>
+        </member>
+        <member name="P:AgeCalculator.Age.Ticks">
+            <summary>
+            Gets the number of ticks that represent the value of the current <see cref="T:AgeCalculator.Age" /> class.
+            </summary>
+            <returns>The number of ticks contained in this instance.</returns>
         </member>
         <member name="M:AgeCalculator.Age.#ctor(System.DateTime,System.DateTime,System.Boolean)">
             <summary>
