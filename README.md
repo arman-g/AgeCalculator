@@ -1,9 +1,9 @@
 # Age Calculator
 
-[![Nuget](https://img.shields.io/nuget/v/AgeCalculator)](https://www.nuget.org/packages/AgeCalculator/)
+[![.NET](https://github.com/arman-g/AgeCalculator/actions/workflows/dotnet.yml/badge.svg)](https://github.com/arman-g/AgeCalculator/actions/workflows/dotnet.yml)
 [![GitHub](https://img.shields.io/github/license/arman-g/AgeCalculator)](https://github.com/arman-g/AgeCalculator/blob/main/LICENSE)
-[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/arman-g/AgeCalculator/.NET/main)](https://github.com/arman-g/AgeCalculator/actions)
 [![GitHub issues](https://img.shields.io/github/issues/arman-g/AgeCalculator)](https://github.com/arman-g/AgeCalculator/issues)
+[![Nuget](https://img.shields.io/nuget/v/AgeCalculator)](https://www.nuget.org/packages/AgeCalculator/)
 
 The **Age Calculator** is a library *(based on the **Gregorian** calendar)* which can be used to calculate the age between two dates and output years, months, days and time components.
 
