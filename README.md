@@ -9,9 +9,6 @@ The **Age Calculator** is a library *(based on the **Gregorian** calendar)* whic
 
 In addition to the default calculation algorithm, it can be configured so that **Feb 29<sup>th</sup>** of a leap year be considered as **Feb 28<sup>th</sup>** of a non-leap year *(making **1-year** cycle)* with switch of a flag. By default, the flag is off.
 
-## Dependencies
-.NET 6+
-
 ## How To Use (C# Code)
 ``` csharp
 /* There are three ways to calculate the age between two dates */

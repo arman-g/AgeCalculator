@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Authors>Arman Ghazanchyan</Authors>
     <Company>AG</Company>
     <Description>The Age Calculator is a library (based on the Gregorian calendar) which can be used to calculate the age between two dates and output years, months, days and time components.</Description>
@@ -9,7 +9,7 @@
     <RepositoryUrl>https://github.com/arman-g/AgeCalculator</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>Age Calculator Calculation Calculate Years Old</PackageTags>
-    <Version>1.4.0</Version>
+    <Version>1.4.1</Version>
     <PackageReleaseNotes>For sample usage see the REDME file under the repository.</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/arman-g/AgeCalculator</PackageProjectUrl>
     <ApplicationIcon />

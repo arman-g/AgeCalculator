@@ -6,15 +6,8 @@ using Xunit.Abstractions;
 
 namespace Tests
 {
-    public class AgeTests
+    public class AgeTests(ITestOutputHelper output)
     {
-        private readonly ITestOutputHelper _output;
-
-        public AgeTests(ITestOutputHelper output)
-        {
-            _output = output;
-        }
-
         [Fact]
         public void TotalValues()
         {
@@ -36,7 +29,7 @@ namespace Tests
         public void InvalidDates(DateTime fromDate, DateTime toDate)
         {
             const string paramName = "fromDate";
-            _output.WriteLine("Should throw an exception.");
+            output.WriteLine("Should throw an exception.");
 
             // Test initialization method
             Assert.Throws<ArgumentOutOfRangeException>(paramName, () => new Age(fromDate, toDate));
@@ -165,12 +158,12 @@ namespace Tests
             bool isFeb28AYearCycleForLeapling = false)
         {
             var age = Age.Calculate(fromDate, toDate, isFeb28AYearCycleForLeapling);
-            _output.WriteLine($"{fromDate:MM/dd/yyyy HH:mm:ss}:{GetLOrNYear(fromDate)} - {toDate:MM/dd/yyyy HH:mm:ss}:{GetLOrNYear(toDate)}");
+            output.WriteLine($"{fromDate:MM/dd/yyyy HH:mm:ss}:{GetLOrNYear(fromDate)} - {toDate:MM/dd/yyyy HH:mm:ss}:{GetLOrNYear(toDate)}");
             if (DateTime.IsLeapYear(fromDate.Year))
             {
-                _output.WriteLine($"{nameof(isFeb28AYearCycleForLeapling)}: {isFeb28AYearCycleForLeapling}");
+                output.WriteLine($"{nameof(isFeb28AYearCycleForLeapling)}: {isFeb28AYearCycleForLeapling}");
             }
-            _output.WriteLine($"Age: {age.Years} years, {age.Months} months, {age.Days} days, {age.Time}");
+            output.WriteLine($"Age: {age.Years} years, {age.Months} months, {age.Days} days, {age.Time}");
             Assert.StrictEqual(expectedYears, age.Years);
             Assert.StrictEqual(expectedMonths, age.Months);
             Assert.StrictEqual(expectedDays, age.Days);
